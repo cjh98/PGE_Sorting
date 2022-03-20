@@ -26,6 +26,7 @@ public:
 	int arr[LEN];
 
 	int selected = 0;
+	int other = 0;
 
 	SortingDemo()
 	{
@@ -63,11 +64,6 @@ public:
 		Clear(olc::VERY_DARK_GREY);
 
 		Display();
-
-		if (!started)
-		{
-			sortThread.join();
-		}
 
 		return true;
 	}
@@ -169,7 +165,8 @@ public:
 				if (arr[i] > arr[i + gap])
 				{
 					selected = i;
-					sleep_for(75ms);
+					other = i + gap;
+					sleep_for(20ms);
 					int temp = arr[i];
 					arr[i] = arr[i + gap];
 					arr[i + gap] = temp;
@@ -195,6 +192,11 @@ public:
 			if (rect == selected)
 			{
 				FillRect(pos, size, olc::RED);
+				DrawRect(pos, size, olc::BLACK);
+			}
+			else if (rect == other)
+			{
+				FillRect(pos, size, olc::BLUE);
 				DrawRect(pos, size, olc::BLACK);
 			}
 			else
